@@ -239,11 +239,11 @@ const tableUser = document.querySelector('.table_users');
 // CREATE USER TO DATABASE
 
 
-function createUser(id, userName, fullName, password, address, phone, type, imgUser) {
+function createUser(id, fullName, userName, password, address, phone, type, imgUser) {
     let user = {
         id: id,
-        userName: userName,
         fullName: fullName,
+        userName: userName,
         password: password,
         address: address,
         phone: phone,
@@ -268,16 +268,16 @@ function readUser() {
         userTableRows.innerHTML += `
             <tr>
             <td>${userValue.id}</td>  
-            <td>${userValue.userName}</td>
             <td>${userValue.fullName}</td>
+            <td>${userValue.userName}</td>
             <td>${userValue.password}</td>
             <td>${userValue.address}</td>
             <td>${userValue.phone}</td>
             <td>${userValue.type}</td>
             <td><img src="${userValue.imgUser}" style="width:30px;height:30px"></td>
             <td>
-                <button data-toggle="modal" data-target="#modalEditUser" type="button" class="btn btn-success" class="btn_edit" onclick="showModalEdit('${userValue.id}','${userValue.userName}','${userValue.fullName}','${userValue.password}','${userValue.address}','${userValue.phone}','${userValue.type}','${userValue.imgUser}')"><i class="fa fa-pencil-square-o"></i></button>
-                <button class="btn_delete" onclick="deleteUser('${userValue.id}')"><i class="	fa fa-trash"></i></button>
+                <button data-toggle="modal" data-target="#modalEditUser" type="button" class="btn btn-success btn_edit" onclick="showModalEdit('${userValue.id}','${userValue.fullName}','${userValue.userName}','${userValue.password}','${userValue.address}','${userValue.phone}','${userValue.type}','${userValue.imgUser}')"><i class="fa fa-pencil"></i></button>
+                <button class="btn_delete btn btn-danger" onclick="deleteUser('${userValue.id}')"><i class="fa fa-trash-o"></i></button>
             </td>
             </tr>
         `;
@@ -298,8 +298,9 @@ userTableRows.addEventListener('load', readUser());
 const btAddUser = document.getElementById('btAddUser')
 btAddUser.addEventListener('click', () => {
     // addModal.classList.add('modal_show');
-    addModalForm.userName.value = '';
+
     addModalForm.fullName.value = '';
+    addModalForm.userName.value = '';
     addModalForm.password.value = '';
     addModalForm.address.value = '';
     addModalForm.phone.value = '';
@@ -315,14 +316,14 @@ btAddUser.addEventListener('click', () => {
 btnSubmitUser = document.querySelector('.modal-footer .btn-success ')
 btnSubmitUser.addEventListener('click', ()=> {
     let id = db.ref('users').push().key;
-    let userName = addModalForm.userName.value;
     let fullName = addModalForm.fullName.value;
+    let userName = addModalForm.userName.value;
     let password = addModalForm.password.value;
     let address = addModalForm.address.value;
     let phone = addModalForm.phone.value;
     let type = addModalForm.type.value;
     let imgUser = addModalForm.imgUser.value;
-    createUser(id, userName, fullName, password, address, phone, type, imgUser);
+    createUser(id, fullName, userName, password, address, phone, type, imgUser);
     readUser();
     // console.log(addModalForm.userName.value);
     // db.collection('users').add({
@@ -355,10 +356,11 @@ btnSubmitUser.addEventListener('click', ()=> {
 /// SHOW MODAL EDIT
 
 const modalEditUser = document.getElementById('modalEditUser');
-function showModalEdit(id, userName, fullName, password, address, phone, type, imgUser) {
+function showModalEdit(id, fullName, userName, password, address, phone, type, imgUser) {
     // editModal.classList.add('modal_show');
-    editModalForm.userName.value = userName;
+
     editModalForm.fullName.value = fullName;
+    editModalForm.userName.value = userName;
     editModalForm.password.value = password;
     editModalForm.address.value = address;
     editModalForm.phone.value = phone;
@@ -368,8 +370,8 @@ function showModalEdit(id, userName, fullName, password, address, phone, type, i
     bt_submit_edit.addEventListener('click', ()=> {
         db.ref('users/' + id).set({
             id:id,
-            userName: editModalForm.userName.value,
             fullName: editModalForm.fullName.value,
+            userName: editModalForm.userName.value,
             password: editModalForm.password.value,
             address: editModalForm.address.value,
             phone: editModalForm.phone.value,
