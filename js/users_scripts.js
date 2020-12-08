@@ -1,13 +1,13 @@
 // add modal
 const addModal = document.querySelector('.add_modal');
-const addModalForm = document.querySelector('.add_modal .form');
+const addModalForm = document.querySelector('.modal-body .formUser');
 
 // edit modal
 const editModal = document.querySelector('.edit_modal');
-const editModalForm = document.querySelector('.edit_modal .form');
+const editModalForm = document.querySelector('.modal-body .editModalFormlUser');
 
 
-const btnAdd = document.querySelector('.btn_addUser');
+const btnAdd = document.querySelector('.btn-success');
 
 // click add user
 
@@ -276,7 +276,7 @@ function readUser() {
             <td>${userValue.type}</td>
             <td><img src="${userValue.imgUser}" style="width:30px;height:30px"></td>
             <td>
-                <button class="btn_edit" onclick="showModalEdit('${userValue.id}','${userValue.userName}','${userValue.fullName}','${userValue.password}','${userValue.address}','${userValue.phone}','${userValue.type}','${userValue.imgUser}')"><i class="fa fa-pencil-square-o"></i></button>
+                <button data-toggle="modal" data-target="#modalEditUser" type="button" class="btn btn-success" class="btn_edit" onclick="showModalEdit('${userValue.id}','${userValue.userName}','${userValue.fullName}','${userValue.password}','${userValue.address}','${userValue.phone}','${userValue.type}','${userValue.imgUser}')"><i class="fa fa-pencil-square-o"></i></button>
                 <button class="btn_delete" onclick="deleteUser('${userValue.id}')"><i class="	fa fa-trash"></i></button>
             </td>
             </tr>
@@ -289,29 +289,31 @@ function readUser() {
 
 
 
-const userTableRows = document.querySelector(".user-rows");
+const userTableRows = document.querySelector(".userRows");
 userTableRows.addEventListener('load', readUser());
 
 
 //////////////////// CREATE USER TO DATABASE WHEN PRESS SUBMIT IN MODAL ADD USER
 // click add user
-btnAdd.addEventListener('click', () => {
-    addModal.classList.add('modal_show');
+const btAddUser = document.getElementById('btAddUser')
+btAddUser.addEventListener('click', () => {
+    // addModal.classList.add('modal_show');
     addModalForm.userName.value = '';
     addModalForm.fullName.value = '';
     addModalForm.password.value = '';
     addModalForm.address.value = '';
     addModalForm.phone.value = '';
     addModalForm.type.value = '';
-    addModalForm.image.value = '';
+    addModalForm.imgUser.value = '';
+    // alert('abc');
 
 });
 
 
 // click submit in add modal
-addModalForm.addEventListener('submit', e => {
-    e.preventDefault();
-    addModal.classList.remove('modal_show');
+
+btnSubmitUser = document.querySelector('.modal-footer .btn-success ')
+btnSubmitUser.addEventListener('click', ()=> {
     let id = db.ref('users').push().key;
     let userName = addModalForm.userName.value;
     let fullName = addModalForm.fullName.value;
@@ -319,7 +321,7 @@ addModalForm.addEventListener('submit', e => {
     let address = addModalForm.address.value;
     let phone = addModalForm.phone.value;
     let type = addModalForm.type.value;
-    let imgUser = addModalForm.image.value;
+    let imgUser = addModalForm.imgUser.value;
     createUser(id, userName, fullName, password, address, phone, type, imgUser);
     readUser();
     // console.log(addModalForm.userName.value);
@@ -351,18 +353,19 @@ addModalForm.addEventListener('submit', e => {
 });
 
 /// SHOW MODAL EDIT
+
+const modalEditUser = document.getElementById('modalEditUser');
 function showModalEdit(id, userName, fullName, password, address, phone, type, imgUser) {
-    editModal.classList.add('modal_show');
+    // editModal.classList.add('modal_show');
     editModalForm.userName.value = userName;
     editModalForm.fullName.value = fullName;
     editModalForm.password.value = password;
     editModalForm.address.value = address;
     editModalForm.phone.value = phone;
     editModalForm.type.value = type;
-    editModalForm.image.value = imgUser;
-    const bt_submit_edit = document.querySelector(".btn_modal_edit");
+    editModalForm.imgUser.value = imgUser;
+    const bt_submit_edit = document.getElementById('btnSubmitEditUser');
     bt_submit_edit.addEventListener('click', ()=> {
-        editModal.classList.remove('modal_show');
         db.ref('users/' + id).set({
             id:id,
             userName: editModalForm.userName.value,
@@ -371,10 +374,10 @@ function showModalEdit(id, userName, fullName, password, address, phone, type, i
             address: editModalForm.address.value,
             phone: editModalForm.phone.value,
             type: editModalForm.type.value,
-            imgUser: editModalForm.image.value
+            imgUser: editModalForm.imgUser.value
 
         });
-        // readUser();
+        readUser();
         document.location.reload(true);
     })
 }
