@@ -1,10 +1,10 @@
 // add modal product
 const addModalProduct = document.querySelector('.add_modal_product');
-const addModalProductForm = document.querySelector('.add_modal_product .form');
+const addModalProductForm = document.querySelector('.modal-body .addProductForm');
 
 // edit modal product
 const editModalProduct = document.querySelector('.edit_modal_product');
-const editModalProductForm = document.querySelector('.edit_modal_product .form');
+const editModalProductForm = document.querySelector('.modal-body .editProductForm');
 
 
 const btnAdd = document.querySelector('.btn_addProduct');
@@ -99,8 +99,8 @@ function readProduct() {
                 <td>${productValue.water}</td>
                 <td><img src='${productValue.imgProduct}' style="width:30px; height:30px"></td>
                 <td>
-                    <button class="btn_edit" onclick="editProduct('${productValue.id}','${productValue.nameProduct}','${productValue.origin}','${productValue.price}','${productValue.soil}','${productValue.sunLight}','${productValue.temp}','${productValue.type}','${productValue.water}','${productValue.information}','${productValue.imgProduct}')"><i class="fa fa-pencil-square-o"></i></button>
-                    <button class="btn_delete" onclick="deleteProduct('${productValue.id}')"><i class="	fa fa-trash"></i></button>
+                    <button data-toggle="modal" data-target="#modalEditProduct" type="button" class="btn btn-success btn_edit" onclick="editProduct('${productValue.id}','${productValue.nameProduct}','${productValue.origin}','${productValue.price}','${productValue.soil}','${productValue.sunLight}','${productValue.temp}','${productValue.type}','${productValue.water}','${productValue.information}','${productValue.imgProduct}')"><i class="fa fa-pencil"></i></button>
+                    <button class="btn_delete btn btn-danger" onclick="deleteProduct('${productValue.id}')"><i class="	fa fa-trash"></i></button>
                 </td>
             </tr>
         `
@@ -110,16 +110,15 @@ function readProduct() {
 
 
 /// call readProduct()
-const productTableRow = document.querySelector(".product-rows");
+const productTableRow = document.querySelector(".rows_product");
 productTableRow.addEventListener('load', readProduct());
 
 
 /// add product
 
 // click button add_product
-const btAddProduct = document.querySelector(".btn_addProduct");
+const btAddProduct = document.getElementById("btnAddProduct");
 btAddProduct.addEventListener('click', () => {
-    addModalProduct.classList.add('modal_show');
     addModalProductForm.nameProduct.value = '';
     addModalProductForm.origin.value = '';
     addModalProductForm.price.value = '';
@@ -133,9 +132,8 @@ btAddProduct.addEventListener('click', () => {
 
 });
 // click submit in modal add product
-const btnSubmitAddProduct = document.querySelector(".btn_modal_addProduct");
+const btnSubmitAddProduct = document.getElementById("btnSubmitAddProduct");
 btnSubmitAddProduct.addEventListener('click', () => {
-    addModalProduct.classList.remove('modal_show');
     let id = db.ref('products').push().key;
     let nameProduct = addModalProductForm.nameProduct.value;
     let origin = addModalProductForm.origin.value;
@@ -157,7 +155,6 @@ btnSubmitAddProduct.addEventListener('click', () => {
 function deleteProduct(id) {
     if (confirm('Do you want to delete element ?')
     ) {
-        console.log('id delete la ', id)
         db.ref('products/' + id).remove();
         readProduct();
     }
@@ -170,7 +167,6 @@ function deleteProduct(id) {
 // click button edit
 
 function editProduct(id, nameProduct, origin, price, soil, sunLight, temp, type, water, information, imgProduct) {
-    editModalProduct.classList.add('modal_show');
     editModalProductForm.nameProduct.value = nameProduct;
     editModalProductForm.origin.value = origin;
     editModalProductForm.price.value = price;
@@ -181,18 +177,10 @@ function editProduct(id, nameProduct, origin, price, soil, sunLight, temp, type,
     editModalProductForm.water.value = water;
     editModalProductForm.information.value = information;
     editModalProductForm.imgProduct.value = imgProduct;
-    submitUpdate(id)
-
-}
-
-
-function submitUpdate(id) {
-    const btn_modal_edit_product = document.querySelector('.btn_modal_edit_product');
-
+    // submitUpdate(id)
+    const btn_modal_edit_product = document.getElementById('btnSubmitEditProduct');
     btn_modal_edit_product.addEventListener('click', () => {
         // e.preventDefault();
-        editModalProduct.classList.remove('modal_show');
-
         let nameProduct = editModalProductForm.nameProduct.value;
         let origin = editModalProductForm.origin.value;
         let price = editModalProductForm.price.value;
@@ -204,7 +192,7 @@ function submitUpdate(id) {
         let imgProduct = editModalProductForm.imgProduct.value;
         let type = editModalProductForm.type.value;
 
-        createProduct(id, nameProduct, origin, price, soil, sunLight, temp, type, water, information, imgProduct);
+        updateProduct(id, nameProduct, origin, price, soil, sunLight, temp, type, water, information, imgProduct);
 
         // let dataProductChange= db.ref('products');
         // dataProductChange.push();
@@ -215,9 +203,41 @@ function submitUpdate(id) {
         // })
         readProduct();
         
+        // document.location.reload(false) ;    
+
+    })
+
+}
 
 
-        document.location.reload(false) ;    
+function submitUpdate(id) {
+    const btn_modal_edit_product = document.getElementById('btnSubmitEditProduct');
+
+    btn_modal_edit_product.addEventListener('click', () => {
+        // e.preventDefault();
+        let nameProduct = editModalProductForm.nameProduct.value;
+        let origin = editModalProductForm.origin.value;
+        let price = editModalProductForm.price.value;
+        let soil = editModalProductForm.soil.value;
+        let sunLight = editModalProductForm.sunLight.value;
+        let temp = editModalProductForm.temp.value;
+        let water = editModalProductForm.water.value;
+        let information = editModalProductForm.information.value;
+        let imgProduct = editModalProductForm.imgProduct.value;
+        let type = editModalProductForm.type.value;
+
+        updateProduct(id, nameProduct, origin, price, soil, sunLight, temp, type, water, information, imgProduct);
+
+        // let dataProductChange= db.ref('products');
+        // dataProductChange.push();
+        // dataProductChange.once('value',(snapshot)=>{
+        //     snapshot.forEach((childSnapshot)=>{
+        //         const dataProduct = childSnapshot.val();
+        //     })
+        // })
+        readProduct();
+        document.location.reload(true);
+        // document.location.reload(false) ;    
 
     })
 }

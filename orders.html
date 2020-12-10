@@ -65,49 +65,18 @@
                         <!-- Title List ORDERS -->
                         <thead class="thead-light">
                             <tr>
-                                <th>ID</th>
-                                <th>FullName</th>
-                                <th>UserName</th>
-                                <th>Password</th>
-                                <th>Address</th>
-                                <th>Phone</th>
-                                <th>Type</th>
-                                <th>Image</th>
-                                <th>Actions</th>
+                                <th class="id-user">Id bill</th>
+                                <th class="user-name-user">User name</th>
+                                <th class="full-name-user">Phone user</th>
+                                <th class="password-user">Address</th>
+                                <th class="address-user">Price $</th>
+                                <th class="password-user">Status</th>
+                                <th class="type-user">Date</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <!-- End Title List ORDERS -->
-                        <tbody>
-                            <tr>
-                                <td>John</td>
-                                <td>Doe</td>
-                                <td>john@example.com</td>
-                                <td>John</td>
-                                <td>Doe</td>
-                                <td>john@example.com</td>
-                                <td>john@example.com</td>
-                                <td>john@example.com</td>
-                            </tr>
-                            <tr>
-                                <td>Mary</td>
-                                <td>Moe</td>
-                                <td>mary@example.com</td>
-                                <td>Mary</td>
-                                <td>Moe</td>
-                                <td>mary@example.com</td>
-                                <td>mary@example.com</td>
-                                <td>john@example.com</td>
-                            </tr>
-                            <tr>
-                                <td>July</td>
-                                <td>Dooley</td>
-                                <td>july@example.com</td>
-                                <td>Mary</td>
-                                <td>mary@example.com</td>
-                                <td>Moe</td>
-                                <td>mary@example.com</td>
-                                <td>john@example.com</td>
-                            </tr>
+                        <tbody id="rows_order">
                         </tbody>
                     </table>
                 </div>
@@ -121,7 +90,7 @@
 
 
     <!-- The Modal add ORDERS -->
-    <div class="modal fade" id="myModal">
+    <div class="modal fade" id="modalEditOrder">
         <div class="modal-dialog">
             <div class="modal-content">
 
@@ -134,62 +103,62 @@
 
                 <!-- Modal body -->
                 <div class="modal-body">
-                    <form>
+                    <form class="formEditOrder">
                         <!-- Adding Fullname -->
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">FullName</span>
+                                <span class="input-group-text">Phone User</span>
                             </div>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" name="phone">
                         </div>
                         <!-- Adding Username -->
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">UserName</span>
+                                <span class="input-group-text">Address</span>
                             </div>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" name="address">
                         </div>
                         <!-- Adding Password -->
-                        <div class="input-group mb-3">
+                        <!-- <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">Password</span>
+                                <span class="input-group-text">Status</span>
                             </div>
-                            <input type="text" class="form-control">
-                        </div>
-                        <!-- Adding Address -->
+                            <input type="text" class="form-control" name="status">
+                        </div> -->
+                        <!-- Adding Address
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Address</span>
                             </div>
                             <input type="text" class="form-control">
                         </div>
-                        <!-- Adding Phone Number -->
-                        <div class="input-group mb-3">
+                        Adding Phone Number -->
+                        <!-- <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Phone Number</span>
                             </div>
                             <input type="text" class="form-control">
-                        </div>
+                        </div> -->
                         <!-- Adding Type -->
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">Type</span>
+                                <span class="input-group-text">Status</span>
                             </div>
-                            <select class="form-control" id="sel1">
-                                <option value="0">Waiting</option>
-                                <option value="1">Checking</option>
-                                <option value="2">Delivery</option>
-                                <option value="3">Complete</option>
-                                <option value="4">Cancel</option>
+                            <select class="form-control" id="sel1" name="status">
+                                <option value="Waiting">Waiting</option>
+                                <option value="Checking">Checking</option>
+                                <option value="Delivery">Delivery</option>
+                                <option value="Completed">Completed</option>
+                                <option value="Canceled">Canceled</option>
                               </select>
                         </div>
                         <!-- Adding Image URL -->
-                        <div class="input-group mb-3">
+                        <!-- <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Image URL</span>
                             </div>
                             <input type="text" class="form-control">
-                        </div>
+                        </div> -->
                     </form>
                 </div>
                 <!-- End Modal body -->
@@ -199,7 +168,7 @@
                     <!-- Button Close -->
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     <!-- Button Save -->
-                    <button type="button" class="btn btn-success">Save</button>
+                    <button type="button" class="btn btn-success" id="btnSubmitEditOrder" data-dismiss="modal">Save</button>
                 </div>
                 <!-- End Modal footer  -->
 
@@ -209,7 +178,7 @@
     <!-- End The Modal add ORDERS -->
 
     <!-- The Modal edit ORDERS -->
-    <div class="modal fade" id="myModal">
+    <div class="modal fade" id="">
         <div class="modal-dialog">
             <div class="modal-content">
 
@@ -295,6 +264,37 @@
         <p>Footer</p>
     </div>
     <!-- End Footer -->
+
+    <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-database.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        var firebaseConfig = {
+            apiKey: "AIzaSyBnq8P5l58K1TUYuzknf2ITxojktU0POsc",
+            authDomain: "appplants-2e15d.firebaseapp.com",
+            databaseURL: "https://appplants-2e15d.firebaseio.com",
+            projectId: "appplants-2e15d",
+            storageBucket: "appplants-2e15d.appspot.com",
+            messagingSenderId: "235684466135",
+            appId: "1:235684466135:web:597a8a5936ae0674ee8f92",
+            measurementId: "G-Y664LHQBBQ"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+
+
+        const db = firebase.database();
+
+    </script>
+
+    <script src="./js/bill_script.js"></script>
 
 </body>
 
