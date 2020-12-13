@@ -48,7 +48,7 @@ function submitEditOrder(id,phone,address,status){
     btnSubmit.addEventListener('click',()=>{
         let phone = editModalFormOrder.phone.value;
         let address = editModalFormOrder.address.value;
-        let status = editModalFormOrder.status.value;
+        let status = parseInt(editModalFormOrder.status.value);
         editOrder(id,phone,address,status);
         readBill();
         document.location.reload(true)
