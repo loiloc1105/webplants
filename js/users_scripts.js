@@ -321,7 +321,7 @@ btnSubmitUser.addEventListener('click', ()=> {
     let password = addModalForm.password.value;
     let address = addModalForm.address.value;
     let phone = addModalForm.phone.value;
-    let type = addModalForm.type.value;
+    let type = parseInt(addModalForm.type.value);
     let imgUser = addModalForm.imgUser.value;
     createUser(id, fullName, userName, password, address, phone, type, imgUser);
     readUser();
@@ -375,7 +375,7 @@ function showModalEdit(id, fullName, userName, password, address, phone, type, i
             password: editModalForm.password.value,
             address: editModalForm.address.value,
             phone: editModalForm.phone.value,
-            type: editModalForm.type.value,
+            type: parseInt(editModalForm.type.value),
             imgUser: editModalForm.imgUser.value
 
         });

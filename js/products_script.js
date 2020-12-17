@@ -92,11 +92,11 @@ function readProduct() {
                 <td>${productValue.id}</td>
                 <td>${productValue.nameProduct}</td>
                 <td>${productValue.origin}</td>
-                <td>${productValue.price}</td>
-                <td>${productValue.soil}</td>
+                <td>$${productValue.price}</td>
+                <td>${productValue.soil}mg</td>
                 <td>${productValue.sunLight}</td>
-                <td>${productValue.temp}</td>
-                <td>${productValue.water}</td>
+                <td>${productValue.temp}*C</td>
+                <td>${productValue.water}lần/tuần</td>
                 <td><img src='${productValue.imgProduct}' style="width:30px; height:30px"></td>
                 <td>
                     <button data-toggle="modal" data-target="#modalEditProduct" type="button" class="btn btn-success btn_edit" onclick="editProduct('${productValue.id}','${productValue.nameProduct}','${productValue.origin}','${productValue.price}','${productValue.soil}','${productValue.sunLight}','${productValue.temp}','${productValue.type}','${productValue.water}','${productValue.information}','${productValue.imgProduct}')"><i class="fa fa-pencil"></i></button>
@@ -137,13 +137,13 @@ btnSubmitAddProduct.addEventListener('click', () => {
     let id = db.ref('products').push().key;
     let nameProduct = addModalProductForm.nameProduct.value;
     let origin = addModalProductForm.origin.value;
-    let price = addModalProductForm.price.value;
+    let price = parseInt(addModalProductForm.price.value);
     let soil = addModalProductForm.soil.value;
     let sunLight = addModalProductForm.sunLight.value;
-    let type = addModalProductForm.type.value;
+    let type = parseInt(addModalProductForm.type.value);
     let information = addModalProductForm.information.value;
     let temp = addModalProductForm.temp.value;
-    let water = addModalProductForm.water.value;
+    let water = parseInt(addModalProductForm.water.value);
     let imgProduct = addModalProductForm.imgProduct.value;
 
     createProduct(id, nameProduct, origin, price, soil, sunLight, temp, type, water, information, imgProduct);
@@ -183,14 +183,14 @@ function editProduct(id, nameProduct, origin, price, soil, sunLight, temp, type,
         // e.preventDefault();
         let nameProduct = editModalProductForm.nameProduct.value;
         let origin = editModalProductForm.origin.value;
-        let price = editModalProductForm.price.value;
+        let price = parseInt(editModalProductForm.price.value);
         let soil = editModalProductForm.soil.value;
         let sunLight = editModalProductForm.sunLight.value;
         let temp = editModalProductForm.temp.value;
         let water = editModalProductForm.water.value;
         let information = editModalProductForm.information.value;
         let imgProduct = editModalProductForm.imgProduct.value;
-        let type = editModalProductForm.type.value;
+        let type = parseInt(editModalProductForm.type.value);
 
         updateProduct(id, nameProduct, origin, price, soil, sunLight, temp, type, water, information, imgProduct);
 
@@ -217,14 +217,14 @@ function submitUpdate(id) {
         // e.preventDefault();
         let nameProduct = editModalProductForm.nameProduct.value;
         let origin = editModalProductForm.origin.value;
-        let price = editModalProductForm.price.value;
+        let price = parseInt(editModalProductForm.price.value);
         let soil = editModalProductForm.soil.value;
         let sunLight = editModalProductForm.sunLight.value;
         let temp = editModalProductForm.temp.value;
-        let water = editModalProductForm.water.value;
+        let water = parseInt(editModalProductForm.water.value);
         let information = editModalProductForm.information.value;
         let imgProduct = editModalProductForm.imgProduct.value;
-        let type = editModalProductForm.type.value;
+        let type = parseInt(editModalProductForm.type.value);
 
         updateProduct(id, nameProduct, origin, price, soil, sunLight, temp, type, water, information, imgProduct);
 
