@@ -67,9 +67,10 @@
                             <tr>
                                 <th class="id-user">Id bill</th>
                                 <th class="user-name-user">User name</th>
-                                <th class="full-name-user">Phone user</th>
+                                <th class="full-name-user">Full name</th>
+                                <th class="phone-number-user">Phone number</th>
                                 <th class="password-user">Address</th>
-                                <th class="address-user">Price $</th>
+                                <th class="address-user">Price</th>
                                 <th class="password-user">Status</th>
                                 <th class="type-user">Date</th>
                                 <th>Action</th>
@@ -89,14 +90,14 @@
     <!-- End Content -->
 
 
-    <!-- The Modal add ORDERS -->
+    <!-- The Modal edit ORDERS -->
     <div class="modal fade" id="modalEditOrder">
         <div class="modal-dialog">
             <div class="modal-content">
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Adding ORDERS</h4>
+                    <h4 class="modal-title">Editting ORDERS</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <!-- End Modal Header -->
@@ -106,39 +107,25 @@
                     <form class="formEditOrder">
                         <!-- Adding Fullname -->
                         <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Full name</span>
+                                </div>
+                                <input type="text" class="form-control" name="fullname">
+                            </div>
+                        <!-- Adding Phone Number -->
+                        <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Phone User</span>
                             </div>
                             <input type="text" class="form-control" name="phone">
                         </div>
-                        <!-- Adding Username -->
+                        <!-- Adding Address -->
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Address</span>
                             </div>
                             <input type="text" class="form-control" name="address">
                         </div>
-                        <!-- Adding Password -->
-                        <!-- <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Status</span>
-                            </div>
-                            <input type="text" class="form-control" name="status">
-                        </div> -->
-                        <!-- Adding Address
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Address</span>
-                            </div>
-                            <input type="text" class="form-control">
-                        </div>
-                        Adding Phone Number -->
-                        <!-- <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Phone Number</span>
-                            </div>
-                            <input type="text" class="form-control">
-                        </div> -->
                         <!-- Adding Type -->
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -152,13 +139,6 @@
                                 <option value=4>Canceled</option>
                               </select>
                         </div>
-                        <!-- Adding Image URL -->
-                        <!-- <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Image URL</span>
-                            </div>
-                            <input type="text" class="form-control">
-                        </div> -->
                     </form>
                 </div>
                 <!-- End Modal body -->
@@ -175,89 +155,9 @@
             </div>
         </div>
     </div>
-    <!-- End The Modal add ORDERS -->
-
-    <!-- The Modal edit ORDERS -->
-    <div class="modal fade" id="">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Editting ORDERS</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <!-- End Modal Header -->
-
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <form>
-                        <!-- Editting Fullname -->
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">FullName</span>
-                            </div>
-                            <input type="text" class="form-control">
-                        </div>
-                        <!-- Editting Username -->
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">UserName</span>
-                            </div>
-                            <input type="text" class="form-control">
-                        </div>
-                        <!-- Editting Password -->
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Password</span>
-                            </div>
-                            <input type="text" class="form-control">
-                        </div>
-                        <!-- Editting Address -->
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Address</span>
-                            </div>
-                            <input type="text" class="form-control">
-                        </div>
-                        <!-- Editting Phone Number -->
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Phone Number</span>
-                            </div>
-                            <input type="text" class="form-control">
-                        </div>
-                        <!-- Editting Type -->
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Type</span>
-                            </div>
-                            <input type="text" class="form-control">
-                        </div>
-                        <!-- Editting Image URL -->
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Image URL</span>
-                            </div>
-                            <input type="text" class="form-control">
-                        </div>
-                    </form>
-                </div>
-                <!-- End Modal Body -->
-
-                <!-- Modal footer  -->
-                <div class="modal-footer">
-                    <!-- Button Close -->
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    <!-- Button Save -->
-                    <button type="button" class="btn btn-success">Save</button>
-                </div>
-                <!-- End Modal footer -->
-
-            </div>
-        </div>
-    </div>
     <!-- End The Modal edit ORDERS -->
+
+   
 
     <!-- Footer -->
     <div class="jumbotron text-center mx-4" >
