@@ -1,25 +1,24 @@
 // add modal
-const addModal = document.querySelector('.add_modal');
-const addModalForm = document.querySelector('.modal-body .formUser');
+const addModal = document.querySelector(".add_modal");
+const addModalForm = document.querySelector(".modal-body .formUser");
 
 // edit modal
-const editModal = document.querySelector('.edit_modal');
-const editModalForm = document.querySelector('.modal-body .editModalFormlUser');
+const editModal = document.querySelector(".edit_modal");
+const editModalForm = document.querySelector(".modal-body .editModalFormlUser");
 
-
-const btnAdd = document.querySelector('.btn-success');
+const btnAdd = document.querySelector(".btn-success");
 
 // click add user
 
 // user click anywhere ouside the modal
-window.addEventListener('click', e => {
-    if (e.target === addModal) {
-        addModal.classList.remove('modal_show');
-    }
-    if (e.target === editModal) {
-        editModal.classList.remove('modal_show');
-    }
-})
+window.addEventListener("click", (e) => {
+  if (e.target === addModal) {
+    addModal.classList.remove("modal_show");
+  }
+  if (e.target === editModal) {
+    editModal.classList.remove("modal_show");
+  }
+});
 
 // create element and render user
 
@@ -32,13 +31,13 @@ window.addEventListener('click', e => {
 // <td>${doc.data().type}</td>
 // <td>${doc.data().imgUser}</td>
 
-const tableUser = document.querySelector('.table_users');
+const tableUser = document.querySelector(".table_users");
 
 // const renderUser = doc => {
 //     const tr = `
 //     <tr data_id='${doc.id}'>
 
-//     <td>${doc.id}</td>  
+//     <td>${doc.id}</td>
 //     <td>${doc.userName}</td>
 //     <td>${doc.fullName}</td>
 //     <td>${doc.password}</td>
@@ -91,7 +90,6 @@ const tableUser = document.querySelector('.table_users');
 //         //     console.log('Erro removing document', err);
 //         // });
 
-
 //         // const keyDelete = Object.keys(snapshot.val())[0];
 //         var txt;
 //         if (confirm("Press a button!")) {
@@ -106,11 +104,6 @@ const tableUser = document.querySelector('.table_users');
 //         } else {
 //             txt = "You pressed Cancel!";
 //         }
-
-
-
-
-
 
 //     });
 // }
@@ -143,12 +136,7 @@ const tableUser = document.querySelector('.table_users');
 //     })
 // }
 
-
-
-
-
-
-//         REAL TIME LISTENER /////////////////////////////// 
+//         REAL TIME LISTENER ///////////////////////////////
 // db.collection('users').onSnapshot(snapshot => {
 //     snapshot.docChanges().forEach(change => {
 
@@ -161,7 +149,7 @@ const tableUser = document.querySelector('.table_users');
 //         {
 //             let tr = document.querySelector(`[data_id='${change.doc.id}']`);
 //             let tbody = tr.parentElement;
-//             tableUser.removeChild(tbody);   
+//             tableUser.removeChild(tbody);
 //         }
 //         if(change.type === 'modified')
 //         {
@@ -172,9 +160,6 @@ const tableUser = document.querySelector('.table_users');
 //         }
 //     })
 // })
-
-
-
 
 // click submit in edit modal
 // function updateUser(idUpdate) {
@@ -238,34 +223,41 @@ const tableUser = document.querySelector('.table_users');
 
 // CREATE USER TO DATABASE
 
+function createUser(
+  id,
+  fullName,
+  userName,
+  password,
+  address,
+  phone,
+  type,
+  imgUser
+) {
+  let user = {
+    id: id,
+    fullName: fullName,
+    userName: userName,
+    password: password,
+    address: address,
+    phone: phone,
+    type: type,
+    imgUser: imgUser,
+  };
 
-function createUser(id, fullName, userName, password, address, phone, type, imgUser) {
-    let user = {
-        id: id,
-        fullName: fullName,
-        userName: userName,
-        password: password,
-        address: address,
-        phone: phone,
-        type: type,
-        imgUser: imgUser
-    };
-
-    //set user to database
-    db.ref('users/' + id).set(user);
-    console.log('full name: ' + user.fullName);
-
+  //set user to database
+  db.ref("users/" + id).set(user);
+  console.log("full name: " + user.fullName);
 }
 
 //READ USER FROM DATABASE AND ADD USER TO TABLE
 function readUser() {
-    userTableRows.innerHTML = "";
-    let listUser = db.ref('users');
-    listUser.on('child_added', function (data) {
-        let userValue = data.val();
+  userTableRows.innerHTML = "";
+  let listUser = db.ref("users");
+  listUser.on("child_added", function (data) {
+    let userValue = data.val();
 
-        // add data to table
-        userTableRows.innerHTML += `
+    // add data to table
+    userTableRows.innerHTML += `
             <tr>
             <td>${userValue.id}</td>  
             <td>${userValue.fullName}</td>
@@ -281,120 +273,156 @@ function readUser() {
             </td>
             </tr>
         `;
-
-
-
-    });
+  });
 }
 
-
-
 const userTableRows = document.querySelector(".userRows");
-userTableRows.addEventListener('load', readUser());
-
+userTableRows.addEventListener("load", readUser());
 
 //////////////////// CREATE USER TO DATABASE WHEN PRESS SUBMIT IN MODAL ADD USER
 // click add user
-const btAddUser = document.getElementById('btAddUser')
-btAddUser.addEventListener('click', () => {
-    // addModal.classList.add('modal_show');
+// const btAddUser = document.getElementById("btAddUser");
+// btAddUser.addEventListener("click", () => {
+//   // addModal.classList.add('modal_show');
 
-    addModalForm.fullName.value = '';
-    addModalForm.userName.value = '';
-    addModalForm.password.value = '';
-    addModalForm.address.value = '';
-    addModalForm.phone.value = '';
-    addModalForm.type.value = '';
-    addModalForm.imgUser.value = '';
-    // alert('abc');
-
-});
-
+//   addModalForm.fullName.value = "";
+//   addModalForm.userName.value = "";
+//   addModalForm.password.value = "";
+//   addModalForm.address.value = "";
+//   addModalForm.phone.value = "";
+//   addModalForm.type.value = "";
+//   addModalForm.imgUser.value = "";
+//   // alert('abc');
+// });
 
 // click submit in add modal
 
-btnSubmitUser = document.querySelector('.modal-footer .btn-success ')
-btnSubmitUser.addEventListener('click', ()=> {
-    let id = db.ref('users').push().key;
-    let fullName = addModalForm.fullName.value;
-    let userName = addModalForm.userName.value;
-    let password = addModalForm.password.value;
-    let address = addModalForm.address.value;
-    let phone = addModalForm.phone.value;
-    let type = parseInt(addModalForm.type.value);
-    let imgUser = addModalForm.imgUser.value;
-    createUser(id, fullName, userName, password, address, phone, type, imgUser);
-    readUser();
-    // console.log(addModalForm.userName.value);
-    // db.collection('users').add({
-    //     id: addModalForm.id.value,
-    //     userName: addModalForm.userName.value,
-    //     fullName: addModalForm.fullName.value,
-    //     password: addModalForm.password.value,
-    //     address: addModalForm.address.value,
-    //     phone: addModalForm.phone.value,
-    //     type: addModalForm.type.value,
-    //     imgUser: addModalForm.image.value
-    // })
-    // const keyUser = db.ref('users').push().key;
+btnSubmitUser = document.querySelector(".modal-footer .btn-success ");
+btnSubmitUser.addEventListener("click", () => {
+  let id = db.ref("users").push().key;
+  let fullName = addModalForm.fullName.value;
+  let userName = addModalForm.userName.value;
+  let password = addModalForm.password.value;
+  let address = addModalForm.address.value;
+  let phone = addModalForm.phone.value;
+  let type = parseInt(addModalForm.type.value);
+  let imgUser = addModalForm.imgUser.value;
+  createUser(id, fullName, userName, password, address, phone, type, imgUser);
+  readUser();
+  // console.log(addModalForm.userName.value);
+  // db.collection('users').add({
+  //     id: addModalForm.id.value,
+  //     userName: addModalForm.userName.value,
+  //     fullName: addModalForm.fullName.value,
+  //     password: addModalForm.password.value,
+  //     address: addModalForm.address.value,
+  //     phone: addModalForm.phone.value,
+  //     type: addModalForm.type.value,
+  //     imgUser: addModalForm.image.value
+  // })
+  // const keyUser = db.ref('users').push().key;
 
-    // db.ref('users/' + keyUser).set({
+  // db.ref('users/' + keyUser).set({
 
-    //     id: keyUser,
-    //     userName: addModalForm.userName.value,
-    //     fullName: addModalForm.fullName.value,
-    //     password: addModalForm.password.value,
-    //     address: addModalForm.address.value,
-    //     phone: addModalForm.phone.value,
-    //     type: addModalForm.type.value,
-    //     imgUser: addModalForm.image.value
+  //     id: keyUser,
+  //     userName: addModalForm.userName.value,
+  //     fullName: addModalForm.fullName.value,
+  //     password: addModalForm.password.value,
+  //     address: addModalForm.address.value,
+  //     phone: addModalForm.phone.value,
+  //     type: addModalForm.type.value,
+  //     imgUser: addModalForm.image.value
 
-    // })
-
+  // })
 });
 
 /// SHOW MODAL EDIT
 
-const modalEditUser = document.getElementById('modalEditUser');
-function showModalEdit(id, fullName, userName, password, address, phone, type, imgUser) {
-    // editModal.classList.add('modal_show');
+const modalEditUser = document.getElementById("modalEditUser");
+function showModalEdit(
+  id,
+  fullName,
+  userName,
+  password,
+  address,
+  phone,
+  type,
+  imgUser
+) {
+  // editModal.classList.add('modal_show');
 
-    editModalForm.fullName.value = fullName;
-    editModalForm.userName.value = userName;
-    editModalForm.password.value = password;
-    editModalForm.address.value = address;
-    editModalForm.phone.value = phone;
-    editModalForm.type.value = type;
-    editModalForm.imgUser.value = imgUser;
-    const bt_submit_edit = document.getElementById('btnSubmitEditUser');
-    bt_submit_edit.addEventListener('click', ()=> {
-        db.ref('users/' + id).set({
-            id:id,
-            fullName: editModalForm.fullName.value,
-            userName: editModalForm.userName.value,
-            password: editModalForm.password.value,
-            address: editModalForm.address.value,
-            phone: editModalForm.phone.value,
-            type: parseInt(editModalForm.type.value),
-            imgUser: editModalForm.imgUser.value
+  editModalForm.fullName.value = fullName;
+  editModalForm.userName.value = userName;
+  editModalForm.password.value = password;
+  editModalForm.address.value = address;
+  editModalForm.phone.value = phone;
+  editModalForm.type.value = type;
+  editModalForm.imgUser.value = imgUser;
+  //check user name truyen vao (k dc (space) hoac (_) hoac (.) dau dong hoac cuoi) (nhap 8-20 tu)
+  const validateUserName = (valUN) => {
+    const paternUN = /^(?=[a-zA-Z0-9]{8,20}$)[^_.].*[^_.]$/;
+    return paternUN.test(valUN);
+  };
 
-        });
-        readUser();
-        document.location.reload(true);
-    })
+  //check password truyen vao
+  const validatePassword = (valPWN) => {
+    const paternPWN = /^(?=[a-zA-Z0-9]{8,20}$)(?!.*[_.]{1})[^_.].*[^_.]$/;
+    return paternPWN.test(valPWN);
+  };
+
+  //check full name
+  const validateFullName = (valFN) => {
+    const paternFN = /^(?=[a-zA-Z0-9\s._]{5,50}$)[^_.].*[^_.]$/;
+    return paternFN.test(valFN);
+  };
+
+  // check address
+  const validateAddress = (valAN) => {
+    const paternAN = /^(?=[a-zA-Z0-9\s._/-]{8,100}$)[^_.].*[^_.]$/;
+    return paternAN.test(valAN);
+  };
+
+  //check phone number
+  const validatePhoneNumber = (valPN) => {
+    const paternPN = /^[09]\d{9,9}$/;
+    return paternPN.test(valPN);
+  };
+
+  const bt_submit_edit = document.getElementById("btnSubmitEditUser");
+  bt_submit_edit.addEventListener("click", () => {
+    if (
+      validateFullName(editModalForm.fullName.value) &&
+      validateFullName(editModalForm.userName.value) &&
+      validatePassword(editModalForm.password.value) &&
+      validateAddress(editModalForm.address.value) &&
+      validatePhoneNumber(editModalForm.phone.value) 
+    ) {
+      db.ref("users/" + id).set({
+        id: id,
+        fullName: editModalForm.fullName.value,
+        userName: editModalForm.userName.value,
+        password: editModalForm.password.value,
+        address: editModalForm.address.value,
+        phone: editModalForm.phone.value,
+        type: parseInt(editModalForm.type.value),
+        imgUser: editModalForm.imgUser.value,
+      });
+      console.log("name la" + editModalForm.fullName.value);
+      readUser();
+      document.location.reload(true);
+    } else {
+      alert("Please done empty any field");
+    }
+  });
 }
-
 
 /////// DELETE USER
 function deleteUser(id) {
-
-    var txt;
-    if (confirm("Do you want delete this element ?")) {
-        db.ref('users/' + id).remove();
-        readUser();
-    }
-    else {
-        txt = "You pressed cancel !";
-    }
-    
+  var txt;
+  if (confirm("Do you want delete this element ?")) {
+    db.ref("users/" + id).remove();
+    readUser();
+  } else {
+    txt = "You pressed cancel !";
+  }
 }

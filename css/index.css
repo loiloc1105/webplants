@@ -5,3 +5,6 @@
 .table-users{
     /* float: left; */
 }
+.show_modal{
+    display: block;
+}

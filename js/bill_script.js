@@ -65,6 +65,21 @@ function editOrder(id, phone, address, status, fullName) {
   db.ref("orders/" + id).update(order);
 }
 
+/// bat loi
+ //check phone number
+ const validatePhoneNumber = (valPN) => {
+    const paternPN = /^[09]\d{9,9}$/;
+    return paternPN.test(valPN);
+  };
+const validateFullName = (valFN) => {
+    const paternFN = /^(?=[a-zA-Z0-9\s._]{5,50}$)[^_.].*[^_.]$/;
+    return paternFN.test(valFN);
+  };
+const validateAddress = (valAN) => {
+    const paternAN = /^(?=[a-zA-Z0-9\s._/-]{8,100}$)[^_.].*[^_.]$/;
+    return paternAN.test(valAN);
+  };
+
 function submitEditOrder(id, phone, address, status, fullName) {
   editModalFormOrder.phone.value = phone;
   editModalFormOrder.address.value = address;
@@ -77,8 +92,15 @@ function submitEditOrder(id, phone, address, status, fullName) {
     let phone = editModalFormOrder.phone.value;
     let address = editModalFormOrder.address.value;
     let status = parseInt(editModalFormOrder.status.value);
-    editOrder(id, phone, address, status, fullName);
-    readBill();
-    document.location.reload(true);
+
+    if(validateFullName(fullName) && validatePhoneNumber(phone) && validateAddress(address)){
+        editOrder(id, phone, address, status, fullName);
+        readBill();
+        document.location.reload(true);
+    }
+    else{
+        alert('Please done empty any feild !' )
+    }
+   
   });
 }
